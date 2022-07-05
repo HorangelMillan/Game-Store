@@ -11,7 +11,7 @@ const {
 
 // middlewares
 const { createUserValidators, updateUserValidators } = require('../middlewares/validators.middleware');
-const { isUser, isEmail } = require('../middlewares/users.middleware');
+const { isEmail } = require('../middlewares/users.middleware');
 const { hashPassword, comparePassword } = require('../middlewares/security.middleware');
 const { protectUserAccount, protectSession } = require('../middlewares/auth.middleware');
 
@@ -22,7 +22,7 @@ usersRouter.post('/signup', createUserValidators, hashPassword, createUser);
 
 usersRouter.post('/login', isEmail, comparePassword, loginUser);
 
-usersRouter.use('/:id', isUser, protectSession, protectUserAccount)
+usersRouter.use('/:id', protectSession, protectUserAccount)
     .route('/:id')
     .patch(updateUserValidators ,updateUser)
     .delete(disableUser);

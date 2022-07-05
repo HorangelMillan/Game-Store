@@ -5,23 +5,6 @@ const { Users } = require('../models/user.model');
 const { catchAsync } = require('../utils/catchAsync.util');
 const { AppError } = require('../utils/appError.util');
 
-const isUser = catchAsync(async (req, res, next) => {
-    const { id } = req.params;
-
-    const user = await Users.findOne({
-        where: {
-            id
-        }
-    });
-
-    if (!user) {
-        return next(new AppError('User not found', 404));
-    };
-
-    req.user = user;
-    next();
-});
-
 const isEmail = catchAsync(async (req, res, next) => {
     const { email } = req.body;
 
@@ -40,4 +23,4 @@ const isEmail = catchAsync(async (req, res, next) => {
     next()
 });
 
-module.exports = { isUser, isEmail };
+module.exports = { isEmail };

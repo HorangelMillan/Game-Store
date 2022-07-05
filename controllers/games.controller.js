@@ -9,7 +9,7 @@ const { catchAsync } = require("../utils/catchAsync.util");
 
 // create controllers
 const createGame = catchAsync(async (req, res, next) => {
-    const { title, genre, consoleId, id } = req.body;
+    const { title, genre, consoleId } = req.body;
 
     const gameCreated = await Games.create({
         title,
@@ -77,13 +77,13 @@ const disableGame = catchAsync(async (req, res, next) => {
 });
 
 const createReview = catchAsync(async (req, res, next) => {
-    const { comment, id } = req.body;
-    const { sessionUser } = req;
+    const { comment } = req.body;
+    const { sessionUser, params } = req;
 
     const createdReview = await Reviews.create({
         comment,
         userId: sessionUser.id,
-        gameId: id
+        gameId: params.gameId
     });
 
     res.status(200).json({

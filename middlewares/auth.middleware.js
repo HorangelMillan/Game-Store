@@ -35,14 +35,20 @@ const protectSession = catchAsync(async (req, res, next) => {
     next();
 });
 
-const protectUserAccount = (req, res, next) => {
-    const { sessionUser, user } = req;
+const protectUserAccount = catchAsync(async (req, res, next) => {
+    const { sessionUser, params } = req;
+
+    const user = await Users.findOne({
+        where: {
+            id: params.id
+        }
+    });
 
     if (sessionUser.id !== user.id) {
         return next(new AppError('You do not own this account', 403));
     };
 
     next();
-};
+});
 
 module.exports = { protectSession, protectUserAccount };

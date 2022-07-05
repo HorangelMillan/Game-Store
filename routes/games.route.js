@@ -25,11 +25,12 @@ gamesRouter.post('/', protectSession, createGameValidators, createGame);
 
 gamesRouter.get('/', getAllGames);
 
+gamesRouter.post('/reviews/:gameId', protectSession, isGame, createReviewValidators, createReview);
+
 gamesRouter.use('/:id', protectSession, isGame)
     .route('/:id')
     .patch(updateGameValidators, updateGame)
     .delete(disableGame);
 
-gamesRouter.post('/reviews/:gameId', protectSession, isGame, createReviewValidators, createReview);
 
 module.exports = { gamesRouter };

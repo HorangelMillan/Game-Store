@@ -27,9 +27,9 @@ const createUserValidators = [
             return true;
         }),
     body('email').isEmail().withMessage('must provide a valid email'),
-    body('password').isAlphanumeric()
-        .withMessage('password must has numbers and letters').isLength({ min: 8 })
-        .withMessage('password must has least 8 digits'),
+    body('password')
+    .isAlphanumeric().withMessage('password must has numbers and letters')
+    .isLength({ min: 8 }).withMessage('password must has least 8 digits'),
     checkResult
 ];
 

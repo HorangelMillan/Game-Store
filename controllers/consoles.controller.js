@@ -32,11 +32,35 @@ const getAllConsoles = catchAsync(async (req, res, next) => {
 });
 
 const updateConsole = catchAsync(async (req, res, next) => {
+    const { name, id } = req.body;
 
+    await Consoles.update({
+        name
+    }, {
+        where: {
+            id
+        }
+    });
+
+    res.status(200).json({
+        status: 'success'
+    });
 });
 
 const disableConsole = catchAsync(async (req, res, next) => {
+    const { id } = req.body;
 
+    await Consoles.update({
+        status: 'disabled'
+    }, {
+        where: {
+            id
+        }
+    });
+
+    res.status(200).json({
+        status: 'success'
+    });
 });
 
 module.exports = {
